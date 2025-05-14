@@ -1,0 +1,180 @@
+// Brutalist variables
+$primary-color: #000;
+$accent-color: #ff0000;
+$background-color: #ffffff;
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $background-color;
+  font-family: "Courier New", monospace;
+  position: relative;
+  padding: 2rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      $primary-color,
+      $primary-color 2px,
+      transparent 2px,
+      transparent 20px
+    );
+    opacity: 0.05;
+  }
+}
+
+.register-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: $background-color;
+  border: 3px solid $primary-color;
+  padding: 2rem;
+  position: relative;
+  transform: rotate(-1deg);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 100%;
+    height: 100%;
+    background-color: $accent-color;
+    z-index: -1;
+  }
+}
+
+.register-header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: $primary-color;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: 'CREATE';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      color: $accent-color;
+      z-index: -1;
+    }
+  }
+}
+
+.register-form {
+  &__error {
+    background-color: $accent-color;
+    color: $background-color;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    transform: rotate(1deg);
+  }
+
+  &__group {
+    margin-bottom: 1.5rem;
+  }
+
+  &__label {
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: $primary-color;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid $primary-color;
+    background-color: $background-color;
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      transform: translate(-3px, -3px);
+      box-shadow: 3px 3px 0 $accent-color;
+    }
+
+    &::placeholder {
+      color: lighten($primary-color, 60%);
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 1rem;
+    background-color: $primary-color;
+    color: $background-color;
+    border: none;
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $accent-color;
+      transform: translate(-3px, -3px);
+      box-shadow: 3px 3px 0 $primary-color;
+    }
+  }
+}
+
+.register-footer {
+  margin-top: 2rem;
+  text-align: center;
+
+  &__link {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $accent-color;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    margin: 1rem;
+    transform: none;
+  }
+
+  .register-header__title {
+    font-size: 1.5rem;
+  }
+}

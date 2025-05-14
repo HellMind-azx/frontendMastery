@@ -1,0 +1,132 @@
+// Using the same brutalist variables from _home.scss
+$glitch-offset: 3px;
+$noise-intensity: 0.5;
+$primary-color: #000;
+$accent-color: #ff0000;
+$background-color: #ffffff;
+
+.footer {
+  background-color: $primary-color;
+  color: $background-color;
+  padding: 4rem 2rem;
+  font-family: "Courier New", monospace;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: repeating-linear-gradient(
+      90deg,
+      $accent-color,
+      $accent-color 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  }
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+  }
+
+  &__section {
+    transform: rotate(-1deg);
+    
+    &:hover {
+      transform: rotate(1deg);
+    }
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid $accent-color;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+
+    &::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: $accent-color;
+      font-weight: bold;
+    }
+  }
+
+  &__link {
+    color: $background-color;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $accent-color;
+      padding-left: 0.5rem;
+    }
+  }
+
+  &__bottom {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 3px solid $background-color;
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 1rem;
+
+    &__container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    &__section {
+      text-align: center;
+      transform: none;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    &__title {
+      display: block;
+      text-align: center;
+    }
+
+    &__item {
+      padding-left: 0;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,164 @@
+@import './variables';
+@import './nav';
+
+.services-page {
+  padding-top: $navbar-height;
+}
+
+.services-hero {
+  height: 60vh;
+  background: linear-gradient(135deg, $light-brown, darken($light-brown, 20%));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 $spacing-unit;
+
+  &__content {
+    max-width: 800px;
+    color: $white;
+  }
+
+  &__title {
+    font-size: 3rem;
+    margin-bottom: $spacing-unit;
+    font-weight: 700;
+  }
+
+  &__description {
+    font-size: 1.5rem;
+    opacity: 0.9;
+  }
+}
+
+.services-grid {
+  padding: $spacing-unit * 4 0;
+  background-color: $white;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+  }
+
+  &__title {
+    text-align: center;
+    color: $light-brown;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-unit * 3;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-unit * 2;
+  }
+}
+
+.service-card {
+  background: $white;
+  padding: $spacing-unit * 2;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $box-shadow-lg;
+  }
+
+  &__icon {
+    font-size: 2.5rem;
+    color: $light-brown;
+    margin-bottom: $spacing-unit;
+  }
+
+  &__title {
+    color: $text-color;
+    font-size: 1.5rem;
+    margin-bottom: $spacing-unit;
+    font-weight: 600;
+  }
+
+  &__description {
+    color: $text-color;
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+
+  &__link {
+    display: inline-block;
+    margin-top: $spacing-unit;
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: 500;
+    color: $light-brown;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.services-cta {
+  padding: $spacing-unit * 4 0;
+  background-color: $light-bg;
+  text-align: center;
+
+  &__content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+  }
+
+  &__title {
+    color: $light-brown;
+    font-size: 2rem;
+    margin-bottom: $spacing-unit;
+  }
+
+  &__text {
+    color: $text-color;
+    font-size: 1.2rem;
+    margin-bottom: $spacing-unit * 2;
+    opacity: 0.8;
+  }
+
+  &__button {
+    @include button-variant($primary-color);
+    padding: $spacing-unit $spacing-unit * 2;
+    font-size: 1.1rem;
+    background-color: $light-brown;
+    border: none;
+    border-radius: $border-radius;
+     &:hover {
+      background-color: #f36353;
+     }
+  }
+}
+
+@media (max-width: 768px) {
+  .services-hero {
+    height: 50vh;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__description {
+      font-size: 1.2rem;
+    }
+  }
+
+  .services-grid {
+    &__items {
+      grid-template-columns: 1fr;
+      gap: $spacing-unit;
+    }
+  }
+
+  .service-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

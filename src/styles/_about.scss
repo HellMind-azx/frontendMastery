@@ -1,0 +1,243 @@
+// Brutalist variables
+$primary-color: #000;
+$accent-color: #ff0000;
+$background-color: #ffffff;
+
+@mixin glitch-effect {
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: $background-color;
+  }
+
+  &::before {
+    left: 2px;
+    text-shadow: -2px 0 $accent-color;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+  }
+
+  &::after {
+    left: -2px;
+    text-shadow: 2px 0 $accent-color;
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+  }
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(42px, 9999px, 44px, 0);
+  }
+  100% {
+    clip: rect(32px, 9999px, 64px, 0);
+  }
+}
+
+.about-page {
+  min-height: 100vh;
+  background-color: $background-color;
+  font-family: "Courier New", monospace;
+}
+
+.about-hero {
+  height: 60vh;
+  background-color: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba($accent-color, 0.1),
+      rgba($accent-color, 0.1) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  }
+
+  &__content {
+    text-align: center;
+    transform: rotate(-2deg);
+    z-index: 1;
+  }
+
+  &__title {
+    font-size: 5rem;
+    font-weight: 900;
+    color: $background-color;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px $accent-color;
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    color: $background-color;
+    border: 2px solid $accent-color;
+    padding: 1rem 2rem;
+    display: inline-block;
+  }
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.about-card {
+  border: 3px solid $primary-color;
+  padding: 2rem;
+  background-color: $background-color;
+  transform: rotate(-1deg);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: rotate(1deg);
+  }
+
+  &--full {
+    grid-column: 1 / -1;
+    transform: none;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    color: $primary-color;
+    border-bottom: 3px solid $accent-color;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  &__text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+
+    li {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 1rem;
+      border: 2px solid $primary-color;
+      text-align: center;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $background-color;
+        transform: translate(-3px, -3px);
+        box-shadow: 3px 3px 0 $accent-color;
+      }
+    }
+  }
+}
+
+.about-feature {
+  background-color: $primary-color;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: $accent-color;
+  }
+
+  &__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: $background-color;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px $accent-color;
+  }
+
+  &__text {
+    font-size: 1.5rem;
+    color: $background-color;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    height: 40vh;
+
+    &__title {
+      font-size: 3rem;
+    }
+
+    &__subtitle {
+      font-size: 1.2rem;
+    }
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    transform: none;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  .about-feature {
+    padding: 3rem 1rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__text {
+      font-size: 1.2rem;
+    }
+  }
+}
