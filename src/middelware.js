@@ -9,6 +9,7 @@ const protectedRoutes = [
     { title: "PROJECTS", path: "/projects" },
     { title: "ABOUT", path: "/about" },
     { title: "PROFILE", path: "/profile", id: "profile" },
+    { title: "LOGOUT", path: "#", id: "logout-button"  },
 ]
 
 

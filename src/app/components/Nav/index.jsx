@@ -2,31 +2,41 @@
 
 import '@/styles/_nav.scss';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '@/firebase/config';
 import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
-import { registeredLinks, nonRegisteredLinks } from '@/store';
+import { onAuthStateChanged } from 'firebase/auth';
 import { removeSessionCookie } from '@/utils/cookies';
 import { signOut } from 'firebase/auth';
 
-const Nav = (props) => {
+const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname()
-  const router = useRouter()
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
 
-  const toggleMenu = async (e) => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+    });
+  
+    return () => unsubscribe();
+  }, []);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      removeSessionCookie();
+      setIsAuthenticated(false);
       router.push('/auth/login');
     } catch (error) {
       console.error('Failed to logout:', error);
     }
   };
+
   return (
     <nav className="nav">
       <div className="nav__container">
@@ -41,35 +51,38 @@ const Nav = (props) => {
         </button>
 
         <ul className={`nav__menu ${isMenuOpen ? 'active' : ''}`}>
-          <li className="nav__item">
-            <Link href="/courses" className="nav__link">
-              Courses
-            </Link>
-          </li>
-          <li className="nav__item">
-            <Link href="/projects" className="nav__link">
-              Projects
-            </Link>
-          </li>
-          <li className="nav__item">
-            <Link href="/about" className="nav__link">
-              About
-            </Link>
-          </li>
-          <li className="nav__item">
-            <Link href="/auth/login" className="nav__link nav__link--cta">
-              Login
-            </Link>
-          </li>
-          <li>
-            <button onClick={handleLogout} className="nav__link nav__link--logout" id='logout-button'>
-              LOGOUT
-            </button>
-          </li>
+          {isAuthenticated ? (
+            <>
+              <li className="nav__item">
+                <Link href="/courses" className="nav__link">Courses</Link>
+              </li>
+              <li className="nav__item">
+                <Link href="/users" className="nav__link">Users</Link>
+              </li>
+              <li className="nav__item">
+                <Link href="/projects" className="nav__link">Projects</Link>
+              </li>
+              <li className="nav__item">
+                <Link href="/about" className="nav__link">About</Link>
+              </li>
+              <li className="nav__item">
+                <Link href="/profile" className="nav__link">Profile</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav__item">
+                <Link href="/about" className="nav__link">About</Link>
+              </li>
+              <li className="nav__item">
+                <Link href="/auth/login" className="nav__link nav__link--cta">Login</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
   );
-}
+};
 
 export default Nav;
